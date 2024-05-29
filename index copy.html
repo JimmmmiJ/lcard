@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 导入字体 -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300|Sacramento" rel="stylesheet">
+    <title>生日快乐</title>
+    <style>
+        .audio {
+            display: none;
+        }
+
+        /* 创建自定义播放按钮 */
+        .custom-play-button {
+            background-color: pink;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px; /* 根据需要调整间距 */
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f2acac;
+        }
+
+        input#open {
+            display: none;
+        }
+
+        .card {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            transform-style: preserve-3d;
+            transform: perspective(2500px);
+            transition: .3s;
+        }
+
+        .card-front {
+            position: relative;
+            background-color: #fff0f3;
+            width: 300px;
+            height: 300px;
+            transform-origin: left;
+            box-shadow: 30px 0 50px rgba(0, 0, 0, 0.3);
+            transition: .3s;
+        }
+
+        .card-front:before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background-color: #f38e8e;
+            top: 10px;
+            left: 10px;
+        }
+
+        .card-inside {
+            position: absolute;
+            background-color: #fff0f3;
+            width: 300px;
+            height: 300px;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            background-color: #f5f5f5;
+        }
+
+        .open {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            left: 0;
+            top: 0;
+            background-color: transparent;
+            z-index: 7;
+        }
+
+        #open:checked ~ .card-front {
+            transform: rotateY(-145deg);
+        }
+
+        #open:checked ~ .card-front:before {
+            z-index: 5;
+            background-color: #fff0f3;
+            width: 330px;
+            height: 300px;
+            top: 0;
+            left: 0;
+            background-image: url(./love.gif);
+            background-size: cover;
+            transform: rotateY(155deg) translateX(16px);
+        }
+
+        .note {
+            position: relative;
+            width: 200px;
+            height: 150px;
+            background-color: #fff0f3;
+            top: 85px;
+            left: 50px;
+            color: #333;
+            font: 900 35px '';
+            display: flex;
+            align-items: center;
+            text-align: center;
+            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
+        }
+
+        img {
+            position: absolute;
+            width: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            top: 25px;
+        }
+
+        .text-one {
+            position: absolute;
+            color: #333;
+            font-size: 15px;
+            top: 30px;
+            width: 300px;
+            text-align: center;
+            color: #ff9999;
+            font-family: 'Sacramento';
+        }
+
+        .text-one:after {
+            content: "";
+            top: 80px;
+        }
+        .flipped .card-front {
+            transform: rotateY(-145deg);
+        }
+
+        .flipped .card-front:before {
+            z-index: 5;
+            background-color: #fff0f3;
+            width: 330px;
+            height: 300px;
+            top: 0;
+            left: 0;
+            background-image: url(./love.gif);
+            background-size: cover;
+            transform: rotateY(155deg) translateX(16px);
+        }
+        .pink-button {
+            display: inline-block;
+            background-color: pink;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .pink-button button {
+            background-color: inherit;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font-size: inherit;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <input id="open" type="checkbox">
+        <label class="open" for="open"></label>
+        <div class="card-front">
+        
+            <div class="note">打开看看！ 💗💗💗 </div>
+        </div>
+        <div class="card-inside">
+            <div class="text-one">
+                <h1>生日快乐！</h1>
+                <h2>
+                    这虽然是一份迟来的祝福，但是不止这一份小小的卡片哦
+
+                </h2>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 将播放按钮移出卡片并添加新容器 -->
+    <div style="margin-top: 20px;">
+        <button class="custom-play-button" onclick="playAudio()">先听听看</button>
+        <a href=" https://jimmmmij.github.io/card/" target="_blank" class="pink-button">
+            <button>点点有惊喜</button>
+        </a>
+    </div>
+
+    <audio id="myAudio" src="music.m4a"></audio>
+    <script>
+        let isFlipped = false;
+
+        function handleCardClick() {
+            if (!isFlipped) {
+                document.querySelector('.card').classList.add('flipped');
+                isFlipped = true;
+            }
+        }
+
+        function playAudio() {
+            var audio = document.getElementById("myAudio");
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+    </script>
+
+</body>
+
+</html>
